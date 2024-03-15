@@ -27,6 +27,6 @@ func main() {
 
 	myStack.Pop()
 	myStack.Pop()
-	// the last item is 0
+	// the last item is 0 in the output
 	fmt.Println(myStack)
 }
