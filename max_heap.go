@@ -40,6 +40,46 @@ func (h *MaxHeap) swap(i1, i2 int) {
 
 }
 
+func (h *MaxHeap) Extract() int {
+	if len(h.array) == 0 {
+		return -1 // or any other appropriate error handling
+	}
+
+	root := h.array[0]
+	lastIndex := len(h.array) - 1
+
+	// Move the last element to the root
+	h.array[0] = h.array[lastIndex]
+	h.array = h.array[:lastIndex]
+
+	h.maxHeapifyDown(0)
+
+	return root
+}
+
+func (h *MaxHeap) maxHeapifyDown(index int) {
+	lastIndex := len(h.array) - 1
+	leftChild := leftChildIndex(index)
+	rightChild := rightChildIndex(index)
+	largest := index
+
+	// Compare with left child
+	if leftChild <= lastIndex && h.array[leftChild] > h.array[largest] {
+		largest = leftChild
+	}
+
+	// Compare with right child
+	if rightChild <= lastIndex && h.array[rightChild] > h.array[largest] {
+		largest = rightChild
+	}
+
+	// If the largest is not the current index, swap and continue heapifying down
+	if largest != index {
+		h.swap(index, largest)
+		h.maxHeapifyDown(largest)
+	}
+}
+
 func main() {
 	maxheap := &MaxHeap{}
 
@@ -49,6 +89,9 @@ func main() {
 		maxheap.Insert(v)
 
 		// the output will be 100,80,50
-		fmt.Println(maxheap)
+		// fmt.Println(maxheap)
 	}
+
+	extracted := maxheap.Extract()
+	fmt.Println("Extracted element:", extracted)
 }
