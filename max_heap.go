@@ -43,7 +43,7 @@ func (h *MaxHeap) swap(i1, i2 int) {
 func main() {
 	maxheap := &MaxHeap{}
 
-	// in the front it will be the largest key always
+	// in the front it will be the largest key always which is 100
 	buildHeap := []int{80, 100, 50}
 	for _, v := range buildHeap {
 		maxheap.Insert(v)
